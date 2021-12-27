@@ -1,0 +1,108 @@
+@import '~@proton/styles/scss/config';
+
+.eventpopover {
+    position: absolute;
+    z-index: 300;
+    inline-size: rem(500);
+    max-inline-size: 100%;
+    max-block-size: 100%;
+    transform-origin: 50%;
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-lifted);
+    background: var(--background-norm);
+    color: var(--text-norm);
+    animation: eventpopoverIn ease 0.15s;
+    animation-fill-mode: both;
+    padding: rem(24);
+    overflow: auto;
+    max-width: rem(392);
+    // transition: all .25s ease; should be applied only when opened and end of animation <-- this is solved by react-transition-group
+
+    &-actions {
+        > * + * {
+            margin-inline-start: rem(8);
+        }
+
+        &-separator {
+            background-color: var(--border-norm);
+            inline-size: rem(1);
+            block-size: rem(28);
+        }
+    }
+
+    &-title {
+        font-size: rem(24);
+    }
+
+	&--full-width {
+		inset: 0;
+		inline-size: 100%;
+		block-size: 100%;
+		max-block-size: 100%;
+		max-width: none;
+	}
+
+    .participant {
+        block-size: rem(32);
+
+        &-text {
+            line-height: rem(20);
+        }
+
+        &-extra-text {
+            line-height: rem(16);
+        }
+
+        &:first-child,
+        &.is-organizer,
+		+ .participant {
+			margin-block-start: em(12); // from design
+		}
+
+		&.needsAction {
+			border-color: var(--border-norm);
+		}
+
+		&-display {
+			border-radius: var(--border-radius-medium);
+		}
+	}
+
+	.partstatIcon {
+		position: absolute;
+		inset-inline-end: 0;
+		inset-block-end: 0;
+		transform: translate3d(50%, 50%, 0);
+		padding: rem(2);
+		border: rem(1) solid var(--background-norm);
+	}
+
+	.tabs {
+		min-block-size: 12em;
+	}
+
+	// special fixes for recurring frequency ------------------
+	.noInEventPopover {
+		display: none;
+	}
+
+	.onpopover-flex-column {
+		flex-direction: column;
+
+		& > * {
+			inline-size: 100%;
+			flex-basis: auto;
+		}
+	}
+
+	// --------------------------------------------------------
+}
+
+@keyframes eventpopoverIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}

@@ -1,0 +1,118 @@
+.calendar-grid {
+	&-heading {
+		color: var(--text-norm);
+
+		&-number {
+			display: inline-flex;
+			border-radius: var(--border-radius-medium);
+
+			@include respond-to($breakpoint-small, 'min') {
+				padding-inline: 0.5em;
+				padding-block: 0.25em;
+				font-size: rem(20);
+				line-height: 1;
+			}
+
+			@include respond-to($breakpoint-small) {
+				inline-size: 1.75em;
+				block-size: 1.75em;
+			}
+		}
+
+		&:hover &-number {
+			background-color: var(--interaction-default-hover);
+			color: var(--text-norm);
+		}
+
+		&[aria-current='date'] {
+			color: var(--primary);
+		}
+
+		@include respond-to($breakpoint-small) {
+			&[aria-pressed='true'] &-number {
+				background-color: var(--primary);
+				color: var(--primary-contrast);
+				font-weight: bold;
+			}
+		}
+
+		&-day-shortname {
+			display: none;
+		}
+
+		&-day-fullname {
+			font-weight: 600;
+		}
+	}
+
+	&-gridcells {
+		border-block-end: $calendar-grid-border;
+	}
+
+	&-dayLine,
+	&-hourLine,
+	&-gridcell {
+		&::after {
+			content: '';
+			position: absolute;
+			pointer-events: none;
+		}
+	}
+
+	&-dayLine {
+		&::after {
+			block-size: 100%;
+			margin-inline-start: -1px;
+			border-inline-start: $calendar-grid-border;
+		}
+	}
+
+	&-hourLine {
+		block-size: $calendar-hour-height;
+
+		&::after {
+			inline-size: 100%;
+			margin-block-start: -1px;
+			border-block-end: $calendar-grid-border;
+		}
+	}
+
+	&-gridcell {
+		margin-inline-end: $calendar-gridcell-margin;
+
+		&::after {
+			border-inline-start: $calendar-grid-border;
+			block-size: 100%;
+			margin-inline-start: -1px;
+		}
+	}
+
+	&-nowHourLine {
+		z-index: 6;
+		inset-inline-start: 0;
+		inset-inline-end: -$calendar-gridcell-margin;
+		border-block-end: 2px solid var(--primary);
+		box-shadow: var(--shadow-norm);
+		pointer-events: none;
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset-block-start: rem(-3);
+			inset-inline-start: rem(-4);
+			inline-size: rem(7);
+			block-size: rem(7);
+			border-radius: 50%;
+			background-color: var(--primary);
+		}
+	}
+
+	&-timeBlock {
+		block-size: $calendar-hour-height;
+	}
+
+	&-timeText {
+		inset-block-start: rem(-10);
+		font-size: rem(10);
+	}
+}
